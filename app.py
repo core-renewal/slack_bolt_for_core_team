@@ -9,27 +9,26 @@ import RegexPattern as reg
 # ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
 app = App(token=config.SLACK_BOT_TOKEN)
 
-@app.message(reg.MRPattern)
+@app.message(reg.MR_PATTERN)
 def requestReview(message):
-    # print(message)
-    if re.match(reg.userPattern, message['text']):
+    if message['channel'] == config.TARGET_CHANNEL_ID:
         response = createResponse(message)
         reply(message, response)
 
 def createResponse(message):
     response = ""
-    userName = re.split("[\(\)]", message['text'])[1]
-    if userName in userList:
-        for userId in userList.values():
-            if userId != message['user']:
-                response += f"<@{userId}> "
+    gitName = re.split("[\(\)]", message['text'])[1]
+    if gitName in userList:
+        for name in userList:
+            if name != gitName:
+                response += f"<@{userList[name]}> "
         response += "レビューお願いします"
     return response
         
 def reply(message, response):
     app.client.chat_postMessage(
             text=response,
-            channel=message['channel'],
+            channel=config.TARGET_CHANNEL_ID,
             thread_ts=message['ts']
         )
 # アプリを起動します

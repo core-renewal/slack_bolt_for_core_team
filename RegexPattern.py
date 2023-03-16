@@ -1,2 +1,1 @@
-MRPattern = ".*opened merge request.*"
-userPattern = ".*\(.+\) opened .*"
+MR_PATTERN = ".*\(.+\) opened merge request.*"
