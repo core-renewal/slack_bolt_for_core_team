@@ -1,4 +1,3 @@
-import os
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 import config
@@ -31,6 +30,11 @@ def reply(message, response):
             channel=config.TARGET_CHANNEL_ID,
             thread_ts=message['ts']
         )
+    
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+    
 # アプリを起動します
 if __name__ == "__main__":
     SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
