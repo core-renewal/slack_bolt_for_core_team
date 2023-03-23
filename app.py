@@ -2,7 +2,7 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 import config
 import re
-from etc.secrets.UserList import userList
+from UserList import userList
 import RegexPattern as reg
 
 # ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
