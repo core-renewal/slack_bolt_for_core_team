@@ -1,7 +1,7 @@
 # slack_bolt_for_core_team
 .envファイルとUserList.pyはgitignoreしているのでローカルで準備する
 ### 環境変数
-.envファイルにSLACK_BOT_TOKENとSLACK_APP_TOKENを設定する
+.envファイルに`SLACK_BOT_TOKEN`と`SLACK_APP_TOKEN`と`TARGET_CHANNEL_ID`を設定する
 ### UserList
 UserList.pyの中に
 ```
