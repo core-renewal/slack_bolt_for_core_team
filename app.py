@@ -6,7 +6,8 @@ from UserList import userList
 import RegexPattern as reg
 
 # ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
-app = App(token=config.SLACK_BOT_TOKEN)
+app = App(token=config.SLACK_BOT_TOKEN,
+          signing_secret=config.SLACK_SIGNING_SECRET)
 
 @app.message(reg.MR_PATTERN)
 def requestReview(message):
@@ -37,4 +38,5 @@ def handle_message_events(body, logger):
     
 # アプリを起動します
 if __name__ == "__main__":
-    SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
+    # SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
+    app.start(port=3000)
