@@ -13,6 +13,7 @@ cachedId = ""
 
 @app.message(reg.MR_PATTERN)
 def requestReview(message):
+    print(message)
     if message['channel'] == config.TARGET_CHANNEL_ID:
         response = createResponse(message)
         reply(message, response)
@@ -41,4 +42,5 @@ def handle_message_events(body, logger):
 # アプリを起動します
 if __name__ == "__main__":
     # SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
+    print("app activated!")
     app.start(port=3000)
