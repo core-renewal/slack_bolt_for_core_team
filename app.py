@@ -9,14 +9,17 @@ import RegexPattern as reg
 app = App(token=config.SLACK_BOT_TOKEN,
           signing_secret=config.SLACK_SIGNING_SECRET)
 
-cachedId = ""
+CACHED_TS = ""
 
 @app.message(reg.MR_PATTERN)
 def requestReview(message):
+    global CACHED_TS
     print(message)
-    if message['channel'] == config.TARGET_CHANNEL_ID:
-        response = createResponse(message)
-        reply(message, response)
+    if message['ts'] != CACHED_TS:
+        CACHED_TS = message['ts']
+        if message['channel'] == config.TARGET_CHANNEL_ID:
+            response = createResponse(message)
+            reply(message, response)
 
 def createResponse(message):
     response = ""
@@ -41,6 +44,6 @@ def handle_message_events(body, logger):
     
 # アプリを起動します
 if __name__ == "__main__":
-    # SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
     print("app activated!")
+    # SocketModeHandler(app, config.SLACK_APP_TOKEN).start()
     app.start(port=3000)
