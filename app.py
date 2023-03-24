@@ -13,13 +13,9 @@ cachedId = ""
 
 @app.message(reg.MR_PATTERN)
 def requestReview(message):
-    receivedId = message['client_msg_id']
-    print(receivedId)
-    if receivedId != cachedId:
-        cachedId = receivedId
-        if message['channel'] == config.TARGET_CHANNEL_ID:
-            response = createResponse(message)
-            reply(message, response)
+    if message['channel'] == config.TARGET_CHANNEL_ID:
+        response = createResponse(message)
+        reply(message, response)
 
 def createResponse(message):
     response = ""
