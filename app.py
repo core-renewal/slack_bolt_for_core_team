@@ -9,11 +9,17 @@ import RegexPattern as reg
 app = App(token=config.SLACK_BOT_TOKEN,
           signing_secret=config.SLACK_SIGNING_SECRET)
 
+cachedId = ""
+
 @app.message(reg.MR_PATTERN)
 def requestReview(message):
-    if message['channel'] == config.TARGET_CHANNEL_ID:
-        response = createResponse(message)
-        reply(message, response)
+    receivedId = message['client_msg_id']
+    print(receivedId)
+    if receivedId != cachedId:
+        cachedId = receivedId
+        if message['channel'] == config.TARGET_CHANNEL_ID:
+            response = createResponse(message)
+            reply(message, response)
 
 def createResponse(message):
     response = ""
