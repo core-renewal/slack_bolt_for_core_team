@@ -15,20 +15,24 @@ CACHED_TS = ""
 def requestReview(message):
     global CACHED_TS
     print(message)
-    if message['ts'] != CACHED_TS:
-        CACHED_TS = message['ts']
-        if message['channel'] == config.TARGET_CHANNEL_ID:
-            response = createResponse(message)
-            reply(message, response)
+    if message['ts'] == CACHED_TS:
+        return
+    CACHED_TS = message['ts']
+    if message['channel'] != config.TARGET_CHANNEL_ID:
+        return
+    response = createResponse(message)
+    if response != "":
+        reply(message, response)
 
 def createResponse(message):
     response = ""
     gitName = re.split("[\(\)]", message['text'])[1]
-    if gitName in userList:
-        for name in userList:
-            if name != gitName:
-                response += f"<@{userList[name]}> "
-        response += "レビューお願いします"
+    if gitName not in userList:
+        return response
+    for name in userList:
+        if name != gitName:
+            response += f"<@{userList[name]}> "
+    response += "レビューお願いします"
     return response
         
 def reply(message, response):
