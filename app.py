@@ -6,6 +6,7 @@ from UserList import userList
 import RegexPattern as reg
 
 # ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
+# app = App(token=config.SLACK_BOT_TOKEN)
 app = App(token=config.SLACK_BOT_TOKEN,
           signing_secret=config.SLACK_SIGNING_SECRET)
 
@@ -15,11 +16,15 @@ CACHED_TS = ""
 def requestReview(message):
     global CACHED_TS
     print(message)
+    
     if message['ts'] == CACHED_TS:
         return
     CACHED_TS = message['ts']
     if message['channel'] != config.TARGET_CHANNEL_ID:
         return
+    if re.match(reg.DRAFT_WIP, message['text']):
+        return
+    
     response = createResponse(message)
     if response != "":
         reply(message, response)
@@ -29,10 +34,12 @@ def createResponse(message):
     gitName = re.split("[\(\)]", message['text'])[1]
     if gitName not in userList:
         return response
+    
     for name in userList:
         if name != gitName:
             response += f"<@{userList[name]}> "
     response += "レビューお願いします"
+    
     return response
         
 def reply(message, response):
