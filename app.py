@@ -22,7 +22,7 @@ def requestReview(message):
     CACHED_TS = message['ts']
     if message['channel'] != config.TARGET_CHANNEL_ID:
         return
-    if re.match(reg.DRAFT_WIP, message['text']):
+    if re.match(reg.DRAFT_WIP, message['text'], re.IGNORECASE):
         return
     
     response = createResponse(message)

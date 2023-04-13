@@ -1,2 +1,2 @@
 MR_PATTERN = ".*\(.+\) opened merge request.*"
-DRAFT_WIP = ".*Draft\: WIP\:.*"
+DRAFT_WIP = ".*Draft\:\s*WIP\:.*"
