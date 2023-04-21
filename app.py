@@ -27,10 +27,11 @@ def requestReview(message):
         
 @app.message(reg.GITLAB_MENTION)
 def mention(message):
-    print(message)
+    commentContent = message['attachments'][0]
+    print(commentContent)
     validate(message)
     
-    response = gitMention(message)
+    response = gitMention(commentContent)
     if response.mention != "":
         reply(message['ts'], response.createResponse())
 
