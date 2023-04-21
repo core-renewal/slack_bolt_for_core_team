@@ -1,2 +1,5 @@
 MR_PATTERN = ".*\(.+\) opened merge request.*"
 DRAFT_WIP = ".*Draft\:\s*WIP\:.*"
+GITLAB_MENTION = ".* commented on merge request.*@.+"
+SPLIT_ID = "[\(\)]"
+MENTIONED_IDS = "@([^@\s]+)\s+"
