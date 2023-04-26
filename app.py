@@ -25,7 +25,7 @@ def requestReview(message):
     if response.mention != "":
         reply(message['ts'], response.createResponse())
         
-@app.message(reg.GITLAB_MENTION)
+@app.message(reg.MR_COMMENT)
 def mention(message):
     commentContent = message['attachments'][0]
     print(commentContent)
