@@ -18,7 +18,11 @@ def requestReview(message):
     global CACHED_TS
     print(message)
     validate(message)
-    if re.match(reg.DRAFT_WIP, message['text'], re.IGNORECASE):
+    if (
+        re.match(reg.DRAFT_WIP, message['text'], re.IGNORECASE) 
+        or re.match(reg.DRAFT_RC, message['text'], re.IGNORECASE) 
+        or re.match(reg.DRAFT_PBI, message['text'], re.IGNORECASE)
+    ):
         return
     
     response = reviewResponse(message)
