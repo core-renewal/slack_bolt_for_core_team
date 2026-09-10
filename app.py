@@ -19,7 +19,7 @@ def requestReview(message):
     print(message)
     validate(message)
     if (
-        re.match(reg.DRAFT_WIP, message['text'], re.IGNORECASE) 
+        re.match(reg.WIP, message['text'], re.IGNORECASE) 
         or re.match(reg.DRAFT_RC, message['text'], re.IGNORECASE) 
         or re.match(reg.DRAFT_PBI, message['text'], re.IGNORECASE)
     ):
